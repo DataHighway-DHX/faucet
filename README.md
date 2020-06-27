@@ -1,4 +1,4 @@
-# Setup
+# Development
 
 ```
 nvm use;

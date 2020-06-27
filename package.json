@@ -14,11 +14,15 @@
     "heroku-postbuild": "cd client && yarn install && yarn install --only=dev --no-shrinkwrap && yarn run build",
     "client": "cd client && yarn && yarn start",
     "server": "yarn && nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "dev": "concurrently --kill-others-on-fail \"DEBUG=app yarn server\" \"yarn client\""
   },
   "dependencies": {
+    "@truffle/hdwallet-provider": "^1.0.36",
     "body-parser": "^1.19.0",
-    "express": "^4.17.1"
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "web3": "^1.2.9"
   },
   "devDependencies": {
     "concurrently": "^5.2.0"
