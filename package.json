@@ -5,8 +5,8 @@
   "author": "Luke Schoen <ltfschoen@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "client": "cd client && yarn start",
-    "server": "nodemon server.js",
+    "client": "cd client && yarn && yarn start",
+    "server": "yarn && nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {

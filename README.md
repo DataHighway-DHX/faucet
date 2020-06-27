@@ -1,8 +1,7 @@
 # Setup
 
 ```
-yarn;
-node server.js
+yarn dev;
 ```
 
-http://localhost:5000/api/hello
+http://localhost:3000
