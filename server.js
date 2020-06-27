@@ -45,9 +45,10 @@ app.get('/api/faucet', async (req, res, next) => {
         });
       });
   } catch (error) {
-    debug("Error: ", error);
+    debug(error);
     // Handle error by Express or pass to custom error handler
-    return next(error);
+    // return next(error); // Crashes
+    return;
   }
 });
 
