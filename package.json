@@ -5,6 +5,8 @@
   "author": "Luke Schoen <ltfschoen@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && yarn install && yarn install --only=dev --no-shrinkwrap && yarn run build",
     "client": "cd client && yarn && yarn start",
     "server": "yarn && nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
