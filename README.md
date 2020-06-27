@@ -1,6 +1,7 @@
 # Setup
 
 ```
+nvm use;
 yarn global add nodemon;
 yarn dev;
 ```
@@ -13,12 +14,19 @@ http://localhost:3000
 heroku login
 heroku apps:create faucet-mining
 git push -f heroku master
-heroku local web
+heroku open
+```
+
+## Debug
+
+```
 heroku ps:scale web=1:free
+heroku ps:scale web=2:standard-2x
 heroku ps
 heroku open
 heroku logs --tail
 heroku restart
+heroku ps:stop web
 ```
 
 # References

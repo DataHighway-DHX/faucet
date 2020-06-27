@@ -4,6 +4,11 @@
   "main": "index.js",
   "author": "Luke Schoen <ltfschoen@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "14.x",
+    "npm": "6.x",
+    "yarn": "1.x"
+  },
   "scripts": {
     "start": "node server.js",
     "heroku-postbuild": "cd client && yarn install && yarn install --only=dev --no-shrinkwrap && yarn run build",
