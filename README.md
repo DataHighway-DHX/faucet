@@ -3,7 +3,7 @@
 ```
 nvm use;
 yarn global add nodemon;
-yarn dev;
+DEBUG=app yarn dev;
 ```
 
 http://localhost:3000
