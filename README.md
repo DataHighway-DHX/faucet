@@ -6,7 +6,19 @@ yarn global add nodemon;
 DEBUG=app yarn dev;
 ```
 
+## User Interface
+
+Note: This is a work in progress. Please request via the API directly.
+
 http://localhost:3000
+
+## Request Ropsten Eth
+
+* Go to http://localhost:5000/api/faucet/eth/ropsten?address=<ETHEREUM_ADDRESS>
+
+## Request MXC ERC-20 Tokens
+
+* Go to http://localhost:5000/api/faucet/mxc/ropsten?address=<ETHEREUM_ADDRESS>
 
 # Deploy (Heroku)
 
