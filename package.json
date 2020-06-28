@@ -20,9 +20,11 @@
     "@truffle/hdwallet-provider": "^1.0.36",
     "bn.js": "^5.1.2",
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.0",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "react-bootstrap": "^1.0.1",
     "web3": "^1.2.9"
   },
   "devDependencies": {

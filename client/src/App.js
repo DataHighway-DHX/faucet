@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Container, Col, Form, Row } from "react-bootstrap";
 
 import logo from './logo.svg';
 
@@ -88,55 +89,68 @@ class App extends Component {
   render() {
     const { ethAddressForEth, ethAddressForMxc, post, response, responseToPost, responseMsg, responseTx } = this.state;
     return (
-      <div className="App">
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-        </header>
-        <p>{response}</p>
-        <form onSubmit={this.handleSubmit}>
-          <p>
-            <strong>Post to Server:</strong>
-          </p>
-          <input
-            type="text"
-            value={post}
-            onChange={e => this.setState({ post: e.target.value })}
-          />
-          <button type="submit">Submit</button>
-        </form>
-        <p>{responseToPost}</p> */}
-        <form onSubmit={this.handleSubmitRequestEth}>
-          <p>
-            <strong>Request ETH:</strong>
-          </p>
-          <input
-            type="text"
-            id="ethAddressForEth"
-            name="ethAddressForEth"
-            value={ethAddressForEth}
-            onChange={e => this.setState({ ethAddressForEth: e.target.value })}
-          />
-          <button type="submit">Submit</button>
-        </form>
-        <form onSubmit={this.handleSubmitRequestMxc}>
-          <p>
-            <strong>Request MXC:</strong>
-          </p>
-          <input
-            type="text"
-            id="ethAddressForMxc"
-            name="ethAddressForMxc"
-            value={ethAddressForMxc}
-            onChange={e => this.setState({ ethAddressForMxc: e.target.value })}
-          />
-          <button type="submit">Submit</button>
-        </form>
-        
-        <p>{responseMsg} {responseMsg ? <a target="_new" href={responseTx}>View Transaction</a> : null}</p>
-      </div>
+      <Container fluid className="App">
+        <Row className="justify-content-md-center">
+          <Col>
+            {/* <header className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+              <p>
+                Edit <code>src/App.js</code> and save to reload.
+              </p>
+            </header>
+            <p>{response}</p>
+            <form onSubmit={this.handleSubmit}>
+              <p>
+                <strong>Post to Server:</strong>
+              </p>
+              <input
+                type="text"
+                value={post}
+                onChange={e => this.setState({ post: e.target.value })}
+              />
+              <button type="submit">Submit</button>
+            </form>
+            <p>{responseToPost}</p> */}
+            <Form onSubmit={this.handleSubmitRequestEth}>
+              <Form.Group controlId="formRequestEth">
+                <Row className="justify-content-md-center">
+                  <Col xs={12} md={4}>
+                    <Form.Label>Request ETH</Form.Label>
+                  </Col>
+                  <Col xs={12} md={8}>
+                    <Form.Control type="text" ref={this.ethAddressForEth} name="ethAddressForEth" placeholder="Ethereum Address" onChange={(e) => this.setState({ ethAddressForEth: e.target.value})}/>
+                    <Form.Text className="text-muted">
+                      Ethereum address for Ropsten ETH
+                    </Form.Text>
+                    <Button variant="primary" className="btn btn-lg" type="submit">Submit</Button>
+                  </Col>
+                </Row>
+              </Form.Group>
+            </Form>
+            <Form onSubmit={this.handleSubmitRequestMxc}>
+              <Form.Group controlId="formRequestMxc">
+                <Row className="justify-content-md-center">
+                  <Col xs={12} md={4}>
+                    <Form.Label>Request MXC</Form.Label>
+                  </Col>
+                  <Col xs={12} md={8}>
+                    <Form.Control type="text" ref={this.ethAddressForMxc} name="ethAddressForMxc" placeholder="Ethereum Address" onChange={(e) => this.setState({ ethAddressForMxc: e.target.value})}/>
+                    <Form.Text className="text-muted">
+                      Ethereum address for MXC ERC-20 tokens
+                    </Form.Text>
+                    <Button variant="primary" className="btn btn-lg" type="submit">Submit</Button>
+                  </Col>
+                </Row>
+              </Form.Group>
+            </Form>
+            <Row className="justify-content-md-center">
+              <Col xs={12} md={12}>
+                <p>{responseMsg} {responseMsg ? <a target="_new" href={responseTx}>View Transaction</a> : null}</p>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
