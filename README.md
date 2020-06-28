@@ -1,30 +1,31 @@
+# Usage
+
+* Go to https://datahighway.herokuapp.com
+* Choose faucet:
+  * Ropsten Testnet ETH
+  * MXC ERC-20 tokens
+* Enter Ethereum Address to receive
+* Click Submit
+
 # Development
 
+* Install dependencies and run server and front-end.
 ```
 nvm use;
 yarn global add nodemon;
 DEBUG=app yarn dev;
 ```
 
-## User Interface
+* Go to http://localhost:3000
+* Enter your Ethereum address to receive either Ropsten Testnet ETH or MXC ERC-20 tokens
 
-Note: This is a work in progress. Please request via the API directly.
+# Maintenance
 
-http://localhost:3000
-
-## Request Ropsten Eth
-
-* Go to http://localhost:5000/api/faucet/eth/ropsten?address=<ETHEREUM_ADDRESS>
-
-## Request MXC ERC-20 Tokens
-
-* Go to http://localhost:5000/api/faucet/mxc/ropsten?address=<ETHEREUM_ADDRESS>
-
-# Deploy (Heroku)
+## Deploy (Heroku)
 
 ```
 heroku login
-heroku apps:create faucet-mining
+heroku apps:create datahighway
 git push -f heroku master
 heroku open
 ```
@@ -44,3 +45,5 @@ heroku ps:stop web
 # References
 
 https://www.freecodecamp.org/news/how-to-make-create-react-app-work-with-a-node-backend-api-7c5c48acb1b0/
+https://github.com/w3f/faucet-bot
+https://zellwk.com/blog/async-await-express/
