@@ -49,13 +49,6 @@ app.get('/api/faucet/mxc/ropsten', async (req, res, next) => {
   }
 });
 
-app.post('/api/world', (req, res) => {
-  console.log(req.body);
-  res.send(
-    `Received POST request: ${req.body.post}`,
-  );
-});
-
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
