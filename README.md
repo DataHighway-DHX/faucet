@@ -12,6 +12,7 @@ Note: Faucet only works when:
 * Requestor's Ropsten MXC ERC-20 token balance < 1 MXC
 * Faucet's Ropsten ETH balance > 0.01 ETH
 * Faucet's Ropsten MXC ERC-20 token balance > 0.01 MXC
+* Requestor's Ethereum address that is not a smart contract, otherwise out of gas error may occur, since only a limited gas price has been catered for.
 
 # Development
 

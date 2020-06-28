@@ -27,11 +27,11 @@ app.get('/api/faucet/eth/ropsten',
     await contractMiddlewareEth.checkBalanceFaucetEth(req, res, next);
   },
   async (req, res, next) => {
-    if (!req.isBalanceRequestorLowEth) {
+    if (!res.locals.isBalanceRequestorLowEth) {
       res.send({ message: 'Ropsten Ether balance of requestor already deemed sufficient' });
       return;
     }
-    if (req.isBalanceFaucetLowEth) {
+    if (res.locals.isBalanceFaucetLowEth) {
       res.send({ message: 'Ropsten Ether balance of faucet depleted. Please try again later.' });
       return;
     }
@@ -62,11 +62,11 @@ app.get('/api/faucet/mxc/ropsten',
     await contractMiddlewareMxc.checkBalanceFaucetMxc(req, res, next);
   },
   async (req, res, next) => {
-    if (!req.isBalanceRequestorLowMxc) {
+    if (!res.locals.isBalanceRequestorLowMxc) {
       res.send({ message: 'Ropsten MXC ERC-20 token balance of requestor already deemed sufficient' });
       return;
     }
-    if (req.isBalanceFaucetLowMxc) {
+    if (res.locals.isBalanceFaucetLowMxc) {
       res.send({ message: 'Ropsten MXC ERC-20 token balance of faucet depleted. Please try again later.' });
       return;
     }

@@ -7,9 +7,9 @@ const checkBalanceRequestorMxc = async (req, res, next) => {
   try {
     console.log('Middleware to check Ropsten MXC ERC-20 balance of requestors Ethereum address');
     const balanceMxc = await getBalanceMxc(req.query.address);
-    req.isBalanceRequestorLowMxc = true;
+    res.locals.isBalanceRequestorLowMxc = true;
     if (balanceMxc.gt(ROPSTEN_MXC_REQUESTOR_SUFFICIENT_BALANCE)) {
-      req.isBalanceRequestorLowMxc = false;
+      res.locals.isBalanceRequestorLowMxc = false;
     }
   } catch (error) {
     if (error) {
@@ -25,9 +25,9 @@ const checkBalanceFaucetMxc = async (req, res, next) => {
   try {
     console.log('Middleware to check Ropsten MXC ERC-20 balance of faucet Ethereum address');
     const balanceMxc = await getBalanceFaucetMxc();
-    req.isBalanceFaucetLowMxc = true;
+    res.locals.isBalanceFaucetLowMxc = true;
     if (balanceMxc.gt(ROPSTEN_MXC_FAUCET_SUFFICIENT_BALANCE)) {
-      req.isBalanceFaucetLowMxc = false;
+      res.locals.isBalanceFaucetLowMxc = false;
     }
   } catch (error) {
     if (error) {

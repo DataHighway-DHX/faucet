@@ -7,10 +7,10 @@ const checkBalanceRequestorEth = async (req, res, next) => {
   try {
     console.log('Middleware to check Ropsten ETH balance of requestors Ethereum address');
     const balanceEth = await getBalanceEth(req.query.address);
-    req.isBalanceRequestorLowEth = true;
+    res.locals.isBalanceRequestorLowEth = true;
     const sufficientBalanceBN = ROPSTEN_ETH_REQUESTOR_SUFFICIENT_BALANCE;
     if (balanceEth.gt(sufficientBalanceBN)) {
-      req.isBalanceRequestorLowEth = false;
+      res.locals.isBalanceRequestorLowEth = false;
     }
   } catch (error) {
     if (error) {
@@ -26,10 +26,10 @@ const checkBalanceFaucetEth = async (req, res, next) => {
   try {
     console.log('Middleware to check Ropsten ETH balance of faucet Ethereum address');
     const balanceEth = await getBalanceFaucetEth();
-    req.isBalanceFaucetLowEth = true;
+    res.locals.isBalanceFaucetLowEth = true;
     const sufficientBalanceBN = ROPSTEN_ETH_FAUCET_SUFFICIENT_BALANCE;
     if (balanceEth.gt(sufficientBalanceBN)) {
-      req.isBalanceFaucetLowEth = false;
+      res.locals.isBalanceFaucetLowEth = false;
     }
   } catch (error) {
     if (error) {
