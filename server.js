@@ -6,6 +6,7 @@ const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 5000;
+const contractMiddleware = require('./middleware/contract.js');
 const { DApp: {
   web3, provider, contractInstanceMXC, sendTransactionEth, sendTransactionMxc
 } } = require('./helpers/contract.js');
@@ -16,20 +17,37 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /**
  * Example: http://localhost:5000/api/faucet/eth/ropsten?address=<ETHEREUM_ADDRESS>
  */
-app.get('/api/faucet/eth/ropsten', async (req, res, next) => {
-  // Handle error in async function
-  try {
-    const to = req.query.address;
-    const { transactionHashUrl } = await sendTransactionEth(to);
-    res.send({
-      message: 'Ropsten Ether sent',
-      tx: transactionHashUrl
-    });
-  } catch (error) {
-    debug(error);
-    return;
+app.get('/api/faucet/eth/ropsten',
+  // Middleware chain
+  (req, res, next) => {
+    console.log('Checking Ethereum account balance of requestor');
+    contractMiddleware.checkBalanceRequestorEth(req, res, next);
+    console.log('Checking Ethereum account balance of faucet');
+    contractMiddleware.checkBalanceFaucetEth(req, res, next);
+  },
+  async (req, res, next) => {
+    if (!req.isBalanceRequestorLowEth) {
+      res.send({ message: 'Ropsten Ether balance of requestor already deemed sufficient' });
+      return;
+    }
+    if (req.isBalanceFaucetLowEth) {
+      res.send({ message: 'Ropsten Ether balance of faucet depleted. Please try again later.' });
+      return;
+    }
+    // Handle error in async function
+    try {
+      const to = req.query.address;
+      const { transactionHashUrl } = await sendTransactionEth(to);
+      res.send({
+        message: 'Ropsten Ether sent',
+        tx: transactionHashUrl
+      });
+    } catch (error) {
+      debug(error);
+      return;
+    }
   }
-});
+);
 
 /**
  * Example: http://localhost:5000/api/faucet/mxc/ropsten?address=<ETHEREUM_ADDRESS>

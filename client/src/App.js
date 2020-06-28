@@ -120,7 +120,7 @@ class App extends Component {
             </Form>
             <Row className="justify-content-md-center">
               <Col xs={12} md={12}>
-                <p>{responseMsg} {responseMsg ? <a target="_new" href={responseTx}>View Transaction</a> : null}</p>
+                <p>{responseMsg} {responseTx ? <a target="_new" href={responseTx}>View Transaction</a> : null}</p>
               </Col>
             </Row>
           </Col>

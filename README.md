@@ -7,6 +7,8 @@
 * Enter Ethereum Address to receive
 * Click Submit
 
+Note: Faucet only works if Ropsten ETH balance or MXC ERC-20 token balance is less than 1
+
 # Development
 
 * Install dependencies and run server and front-end.

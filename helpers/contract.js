@@ -4,6 +4,8 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 const BN = require('bn.js');
 const debug = require('debug')('app');
 
+const { ROPSTEN_ETH_FAUCET_TO_SEND, ROPSTEN_MXC_FAUCET_TO_SEND } = require('../constants');
+
 const DApp = {
   contractAddressMXC: null,
   contractInstanceMXC: null,
@@ -24,6 +26,20 @@ const DApp = {
     DApp.contractInstanceMXC.setProvider(DApp.provider);
   },
   infuraHttpProvider: null,
+  getBalanceEth: async (ethAddress) => {
+    const balance = await DApp.web3.eth.getBalance(ethAddress);
+    const balanceBN = new BN(balance, 10);
+    const balanceEth = await DApp.web3.utils.fromWei(balanceBN);
+    debug('Balance ETH: ', balanceEth);
+    return balanceEth;
+  },
+  getBalanceFaucetEth: async () => {
+    const balance = await DApp.web3.eth.getBalance(DApp.coinbase);
+    const balanceBN = new BN(balance, 10);
+    const balanceEth = await DApp.web3.utils.fromWei(balanceBN);
+    debug('Balance Faucet ETH: ', balanceEth);
+    return balanceEth;
+  },
   getBlock: async () => {
     const block = await DApp.web3.eth.getBlock("latest");
     debug('Current block: ', block.timestamp);
@@ -33,7 +49,7 @@ const DApp = {
     debug('Recipient: ', to);
     debug('Sending Ropsten Eth. Please wait...');
     // Show Ethereum address associated with mnemonic
-    const amount = new BN(1, 10);
+    const amount = new BN(ROPSTEN_ETH_FAUCET_TO_SEND, 10);
     // https://web3js.readthedocs.io/en/v1.2.6/web3-utils.html#towei
     const transactionHash = await DApp.web3.eth.sendTransaction({
       from: DApp.coinbase,
@@ -55,7 +71,7 @@ const DApp = {
     debug('Recipient: ', to);
     debug('Sending MXC ERC-20 tokens. Please wait...');
     // Show Ethereum address associated with mnemonic
-    const amount = new BN(1, 10);
+    const amount = new BN(ROPSTEN_MXC_FAUCET_TO_SEND, 10);
     // https://web3js.readthedocs.io/en/v1.2.6/web3-utils.html#towei
     const balance = await DApp.contractInstanceMXC.methods.balanceOf(DApp.coinbase).call();
     debug('Faucet balance: ', balance);
