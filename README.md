@@ -51,6 +51,6 @@ heroku ps:stop web
 
 # References
 
-https://www.freecodecamp.org/news/how-to-make-create-react-app-work-with-a-node-backend-api-7c5c48acb1b0/
-https://github.com/w3f/faucet-bot
-https://zellwk.com/blog/async-await-express/
+* https://www.freecodecamp.org/news/how-to-make-create-react-app-work-with-a-node-backend-api-7c5c48acb1b0/
+* https://github.com/w3f/faucet-bot
+* https://zellwk.com/blog/async-await-express/
