@@ -23,6 +23,8 @@ app.get('/api/faucet/eth/ropsten',
   async (req, res, next) => {
     console.log('Checking Ethereum account balance of requestor');
     await contractMiddlewareEth.checkBalanceRequestorEth(req, res, next);
+  },
+  async (req, res, next) => {
     console.log('Checking Ethereum account balance of faucet');
     await contractMiddlewareEth.checkBalanceFaucetEth(req, res, next);
   },
@@ -58,6 +60,8 @@ app.get('/api/faucet/mxc/ropsten',
   async (req, res, next) => {
     console.log('Checking MXC ERC-20 token account balance of requestor');
     await contractMiddlewareMxc.checkBalanceRequestorMxc(req, res, next);
+  },
+  async (req, res, next) => {
     console.log('Checking MXC ERC-20 token account balance of faucet');
     await contractMiddlewareMxc.checkBalanceFaucetMxc(req, res, next);
   },
