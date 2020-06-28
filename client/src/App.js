@@ -13,10 +13,9 @@ class App extends Component {
 
   handleSubmitRequestEth = async e => {
     e.preventDefault();
-    const { ethAddressForEth } = this.state;
     const data = new FormData(e.target);
     const inputEthAddress = data.get('ethAddressForEth');
-    if (inputEthAddress == '') {
+    if (inputEthAddress === '') {
       return;
     }
     const url = new URL(`${window.location.href}api/faucet/eth/ropsten`);
@@ -42,10 +41,9 @@ class App extends Component {
 
   handleSubmitRequestMxc = async e => {
     e.preventDefault();
-    const { ethAddressForMxc } = this.state;
     const data = new FormData(e.target);
     const inputEthAddress = data.get('ethAddressForMxc');
-    if (inputEthAddress == '') {
+    if (inputEthAddress === '') {
       return;
     }
     const url = new URL(`${window.location.href}api/faucet/mxc/ropsten`);
@@ -70,7 +68,7 @@ class App extends Component {
   };
   
   render() {
-    const { ethAddressForEth, ethAddressForMxc, responseMsg, responseTx } = this.state;
+    const { responseMsg, responseTx } = this.state;
     return (
       <Container fluid className="App">
         <Row className="justify-content-md-center">

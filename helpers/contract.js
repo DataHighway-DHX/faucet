@@ -31,14 +31,28 @@ const DApp = {
     const balanceBN = new BN(balance, 10);
     const balanceEth = await DApp.web3.utils.fromWei(balanceBN);
     debug('Balance ETH: ', balanceEth);
-    return balanceEth;
+    debug('Balance Wei: ', balanceBN.toString());
+    return balanceBN;
   },
   getBalanceFaucetEth: async () => {
     const balance = await DApp.web3.eth.getBalance(DApp.coinbase);
     const balanceBN = new BN(balance, 10);
     const balanceEth = await DApp.web3.utils.fromWei(balanceBN);
     debug('Balance Faucet ETH: ', balanceEth);
-    return balanceEth;
+    debug('Balance Faucet Wei: ', balanceBN.toString());
+    return balanceBN;
+  },
+  getBalanceMxc: async (ethAddress) => {
+    const balance = await DApp.contractInstanceMXC.methods.balanceOf(ethAddress).call();
+    const balanceBN = new BN(balance, 10);
+    debug('Balance MXC ERC-20: ', balanceBN.toString());
+    return balanceBN;
+  },
+  getBalanceFaucetMxc: async () => {
+    const balance = await DApp.contractInstanceMXC.methods.balanceOf(DApp.coinbase).call();
+    const balanceBN = new BN(balance, 10);
+    debug('Balance Faucet MXC ERC-20: ', balanceBN.toString());
+    return balanceBN;
   },
   getBlock: async () => {
     const block = await DApp.web3.eth.getBlock("latest");

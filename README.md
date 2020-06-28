@@ -7,7 +7,11 @@
 * Enter Ethereum Address to receive
 * Click Submit
 
-Note: Faucet only works if Ropsten ETH balance or MXC ERC-20 token balance is less than 1
+Note: Faucet only works when:
+* Requestor's Ropsten ETH balance < 1 MXC
+* Requestor's Ropsten MXC ERC-20 token balance < 1 MXC
+* Faucet's Ropsten ETH balance > 0.01 ETH
+* Faucet's Ropsten MXC ERC-20 token balance > 0.01 MXC
 
 # Development
 

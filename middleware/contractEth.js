@@ -5,16 +5,16 @@ const { ROPSTEN_ETH_REQUESTOR_SUFFICIENT_BALANCE, ROPSTEN_ETH_FAUCET_SUFFICIENT_
 
 const checkBalanceRequestorEth = async (req, res, next) => {
   try {
-    console.log('Middleware to check balance of requestors Ethereum address');
+    console.log('Middleware to check Ropsten ETH balance of requestors Ethereum address');
     const balanceEth = await getBalanceEth(req.query.address);
     req.isBalanceRequestorLowEth = true;
-    const sufficientBalanceBN = new BN(ROPSTEN_ETH_REQUESTOR_SUFFICIENT_BALANCE, 10);
-    if (balanceEth > sufficientBalanceBN) {
+    const sufficientBalanceBN = ROPSTEN_ETH_REQUESTOR_SUFFICIENT_BALANCE;
+    if (balanceEth.gt(sufficientBalanceBN)) {
       req.isBalanceRequestorLowEth = false;
     }
   } catch (error) {
     if (error) {
-      console.error('Error checking balance with middleware: ', error);
+      console.error('Error checking balance of Ropsten ETH with middleware: ', error);
       next(error);
       return;
     }
@@ -24,16 +24,16 @@ const checkBalanceRequestorEth = async (req, res, next) => {
 
 const checkBalanceFaucetEth = async (req, res, next) => {
   try {
-    console.log('Middleware to check balance of faucet Ethereum address');
+    console.log('Middleware to check Ropsten ETH balance of faucet Ethereum address');
     const balanceEth = await getBalanceFaucetEth();
     req.isBalanceFaucetLowEth = true;
-    const sufficientBalanceBN = new BN(ROPSTEN_ETH_FAUCET_SUFFICIENT_BALANCE, 10);
-    if (balanceEth > sufficientBalanceBN) {
+    const sufficientBalanceBN = ROPSTEN_ETH_FAUCET_SUFFICIENT_BALANCE;
+    if (balanceEth.gt(sufficientBalanceBN)) {
       req.isBalanceFaucetLowEth = false;
     }
   } catch (error) {
     if (error) {
-      console.error('Error checking balance with middleware: ', error);
+      console.error('Error checking balance of Ropsten ETH with middleware: ', error);
       next(error);
       return;
     }
