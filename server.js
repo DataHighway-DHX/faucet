@@ -24,7 +24,7 @@ app.get('/api/faucet/eth/ropsten', async (req, res, next) => {
     const to = req.query.address;
     const { transactionHashUrl } = await sendTransactionEth(to);
     res.send({
-      result: 'Ropsten Ether sent',
+      message: 'Ropsten Ether sent',
       tx: transactionHashUrl
     });
   } catch (error) {
@@ -44,7 +44,7 @@ app.get('/api/faucet/mxc/ropsten', async (req, res, next) => {
     const to = req.query.address;
     const { transactionHashUrl } = await sendTransactionMxc(to);
     res.send({
-      result: 'Ropsten MXC ERC-20 sent',
+      message: 'Ropsten MXC ERC-20 sent',
       tx: transactionHashUrl
     });
   } catch (error) {

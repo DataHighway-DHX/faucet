@@ -9,12 +9,16 @@ class App extends Component {
     response: '',
     post: '',
     responseToPost: '',
+    ethAddressForEth: '',
+    ethAddressForMxc: '',
+    responseMessage: '',
+    responseTx: '',
   };
   
   componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
+    // this.callApi()
+    //   .then(res => this.setState({ response: res.express }))
+    //   .catch(err => console.log(err));
   }
   
   /**
@@ -27,7 +31,45 @@ class App extends Component {
     
     return body;
   };
-  
+
+  handleSubmitRequestEth = async e => {
+    e.preventDefault();
+    const { ethAddressForEth } = this.state;
+    const data = new FormData(e.target);
+    const url = new URL(`${window.location.href}api/faucet/eth/ropsten`);
+    const params = { address: data.get('ethAddressForEth') };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+    const response = await fetch(url, {
+      method: 'GET',
+    });
+    const json = await response.json();
+    console.log('Response from handling request for Eth in json: ', json);
+    this.setState({
+      responseMsg: json.message,
+      responseTx: json.tx
+    });
+  };
+
+  handleSubmitRequestMxc = async e => {
+    e.preventDefault();
+    const { ethAddressForMxc } = this.state;
+    const data = new FormData(e.target);
+    const url = new URL(`${window.location.href}api/faucet/mxc/ropsten`);
+    const params = { address: data.get('ethAddressForMxc') };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+    const response = await fetch(url, {
+      method: 'GET',
+    });
+    const json = await response.json();
+    console.log('Response from handling request for MXC in json: ', json);
+    this.setState({
+      responseMsg: json.message,
+      responseTx: json.tx
+    });
+  };
+
   handleSubmit = async e => {
     e.preventDefault();
     const { post } = this.state;
@@ -44,10 +86,10 @@ class App extends Component {
   };
   
   render() {
-    const { post, response, responseToPost } = this.state;
+    const { ethAddressForEth, ethAddressForMxc, post, response, responseToPost, responseMsg, responseTx } = this.state;
     return (
       <div className="App">
-        <header className="App-header">
+        {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
@@ -65,7 +107,35 @@ class App extends Component {
           />
           <button type="submit">Submit</button>
         </form>
-        <p>{responseToPost}</p>
+        <p>{responseToPost}</p> */}
+        <form onSubmit={this.handleSubmitRequestEth}>
+          <p>
+            <strong>Request ETH:</strong>
+          </p>
+          <input
+            type="text"
+            id="ethAddressForEth"
+            name="ethAddressForEth"
+            value={ethAddressForEth}
+            onChange={e => this.setState({ ethAddressForEth: e.target.value })}
+          />
+          <button type="submit">Submit</button>
+        </form>
+        <form onSubmit={this.handleSubmitRequestMxc}>
+          <p>
+            <strong>Request MXC:</strong>
+          </p>
+          <input
+            type="text"
+            id="ethAddressForMxc"
+            name="ethAddressForMxc"
+            value={ethAddressForMxc}
+            onChange={e => this.setState({ ethAddressForMxc: e.target.value })}
+          />
+          <button type="submit">Submit</button>
+        </form>
+        
+        <p>{responseMsg} {responseMsg ? <a target="_new" href={responseTx}>View Transaction</a> : null}</p>
       </div>
     );
   }
