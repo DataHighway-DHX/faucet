@@ -17,7 +17,6 @@
     "dev": "concurrently --kill-others-on-fail \"DEBUG=app yarn server\" \"yarn client\""
   },
   "dependencies": {
-    "@truffle/contract": "^4.2.10",
     "@truffle/hdwallet-provider": "^1.0.36",
     "bn.js": "^5.1.2",
     "body-parser": "^1.19.0",
