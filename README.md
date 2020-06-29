@@ -34,6 +34,21 @@ DEBUG=app yarn dev;
 heroku login
 heroku apps:create datahighway
 git push -f heroku master
+```
+
+Set Heroku Environment Variables to match the contents of the .env file. Replace missing values below:
+```
+heroku config:set \
+  ETHEREUM_ADDRESS=0x \
+  MNENOMIC="" \
+  INFURA_API_PROJECT_ID="" \
+  CONTRACT_ADDRESS_MXC_TESTNET=0x7d3037fa9f8f253e4e7fc930f0a299cbd6eac349 \
+  MNENOMIC_DATAHIGHWAY="bottom drive obey lake curtain smoke basket hold race lonely fit walk//Alice" \
+  HARBOUR_DHX_CUSTOM_TYPES_UR=https://raw.githubusercontent.com/DataHighway-DHX/node/master/custom_types.json
+```
+
+Open the production website
+```
 heroku open
 ```
 
