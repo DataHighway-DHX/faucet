@@ -101,7 +101,7 @@ class App extends Component {
     return (
       <Container fluid className="App">
         <Row className="justify-content-md-center">
-          <Col xs={12} md={3}>
+          <Col xs={12} md={1}>
             <a target="_blank" rel="noopener noreferrer" href="https://datahighway.com">
               <img
                 width={64}
@@ -112,7 +112,7 @@ class App extends Component {
               />
             </a>
           </Col>
-          <Col xs={12} md={9} className="mt-4">
+          <Col xs={12} md={11} className="mt-4">
             <h2>DataHighway Faucet</h2><br />
             <p className="media-body-description">
               The DataHighway Faucet has been provided to allow users to request different tokens to test the DataHighway Harbour Testnet.
@@ -121,6 +121,16 @@ class App extends Component {
         </Row>
         <Row className="justify-content-md-center">
           <Col>
+            { responseMsg || responseTx ? (
+                <Row className="justify-content-md-center">
+                  <Col xs={12} md={12}>
+                    <Alert variant="info">
+                      {responseMsg} {responseTx ? <a target="_new" href={responseTx}>View Transaction</a> : null}
+                    </Alert>
+                  </Col>
+                </Row>
+              ) : null
+            }
             <hr className="mb-4" />
             <Form onSubmit={this.handleSubmitRequestEth}>
               <Form.Group controlId="formRequestEth">
@@ -195,11 +205,6 @@ class App extends Component {
                 </Row>
               </Form.Group>
             </Form>
-            <Row className="justify-content-md-center">
-              <Col xs={12} md={12}>
-                <p>{responseMsg} {responseTx ? <a target="_new" href={responseTx}>View Transaction</a> : null}</p>
-              </Col>
-            </Row>
           </Col>
         </Row>
         <Row className="justify-content-md-center">
