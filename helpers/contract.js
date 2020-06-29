@@ -2,7 +2,7 @@ const fs = require('fs');
 const Web3 = require('web3');
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const BN = require('bn.js');
-const debug = require('debug')('app');
+const { debugLog, debugInfo, debugError } = require('../utils/debug.js');
 
 const { ROPSTEN_ETH_FAUCET_TO_SEND, ROPSTEN_MXC_FAUCET_TO_SEND } = require('../constants');
 
@@ -30,38 +30,38 @@ const DApp = {
     const balance = await DApp.web3.eth.getBalance(ethAddress);
     const balanceBN = new BN(balance, 10);
     const balanceEth = await DApp.web3.utils.fromWei(balanceBN);
-    debug('Balance ETH: ', balanceEth);
-    debug('Balance Wei: ', balanceBN.toString());
+    debugLog('Balance ETH: ', balanceEth);
+    debugLog('Balance Wei: ', balanceBN.toString());
     return balanceBN;
   },
   getBalanceFaucetEth: async () => {
     const balance = await DApp.web3.eth.getBalance(DApp.coinbase);
     const balanceBN = new BN(balance, 10);
     const balanceEth = await DApp.web3.utils.fromWei(balanceBN);
-    debug('Balance Faucet ETH: ', balanceEth);
-    debug('Balance Faucet Wei: ', balanceBN.toString());
+    debugLog('Balance Faucet ETH: ', balanceEth);
+    debugLog('Balance Faucet Wei: ', balanceBN.toString());
     return balanceBN;
   },
   getBalanceMxc: async (ethAddress) => {
     const balance = await DApp.contractInstanceMXC.methods.balanceOf(ethAddress).call();
     const balanceBN = new BN(balance, 10);
-    debug('Balance MXC ERC-20: ', balanceBN.toString());
+    debugLog('Balance MXC ERC-20: ', balanceBN.toString());
     return balanceBN;
   },
   getBalanceFaucetMxc: async () => {
     const balance = await DApp.contractInstanceMXC.methods.balanceOf(DApp.coinbase).call();
     const balanceBN = new BN(balance, 10);
-    debug('Balance Faucet MXC ERC-20: ', balanceBN.toString());
+    debugLog('Balance Faucet MXC ERC-20: ', balanceBN.toString());
     return balanceBN;
   },
   getBlock: async () => {
     const block = await DApp.web3.eth.getBlock("latest");
-    debug('Current block: ', block.timestamp);
+    debugLog('Current block: ', block.timestamp);
   },
   provider: null,
   sendTransactionEth: async (to) => {
-    debug('Recipient: ', to);
-    debug('Sending Ropsten Eth. Please wait...');
+    debugLog('Recipient: ', to);
+    debugLog('Sending Ropsten Eth. Please wait...');
     // Show Ethereum address associated with mnemonic
     const amount = new BN(ROPSTEN_ETH_FAUCET_TO_SEND, 10);
     // https://web3js.readthedocs.io/en/v1.2.6/web3-utils.html#towei
@@ -72,7 +72,7 @@ const DApp = {
       gas: 21000
     })
     .then((receipt) => {
-      debug('Transaction receipt', receipt);
+      debugLog('Transaction receipt', receipt);
 
       return receipt.transactionHash;
     });
@@ -82,13 +82,13 @@ const DApp = {
     };
   },
   sendTransactionMxc: async (to) => {
-    debug('Recipient: ', to);
-    debug('Sending MXC ERC-20 tokens. Please wait...');
+    debugLog('Recipient: ', to);
+    debugLog('Sending MXC ERC-20 tokens. Please wait...');
     // Show Ethereum address associated with mnemonic
     const amount = new BN(ROPSTEN_MXC_FAUCET_TO_SEND, 10);
     // https://web3js.readthedocs.io/en/v1.2.6/web3-utils.html#towei
     const balance = await DApp.contractInstanceMXC.methods.balanceOf(DApp.coinbase).call();
-    debug('Faucet balance: ', balance);
+    debugLog('Faucet balance: ', balance);
 
     const transactionHash = await DApp.contractInstanceMXC.methods.transfer(to.toLowerCase(), amount)
       .send({
@@ -98,7 +98,7 @@ const DApp = {
         gasPrice: 30000000000
       })
       .then((receipt) => {
-        debug('Transaction receipt', receipt);
+        debugLog('Transaction receipt', receipt);
 
         return receipt.transactionHash;
       });

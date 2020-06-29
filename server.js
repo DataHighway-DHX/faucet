@@ -1,8 +1,8 @@
 require('dotenv').config()
-const debug = require('debug')('app');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const { debugLog, debugInfo, debugError } = require('./utils/debug.js');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -21,11 +21,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/api/faucet/eth/ropsten',
   // Middleware chain
   async (req, res, next) => {
-    console.log('Checking Ethereum account balance of requestor');
+    debugLog('Checking Ethereum account balance of requestor');
     await contractMiddlewareEth.checkBalanceRequestorEth(req, res, next);
   },
   async (req, res, next) => {
-    console.log('Checking Ethereum account balance of faucet');
+    debugLog('Checking Ethereum account balance of faucet');
     await contractMiddlewareEth.checkBalanceFaucetEth(req, res, next);
   },
   async (req, res, next) => {
@@ -46,7 +46,7 @@ app.get('/api/faucet/eth/ropsten',
         tx: transactionHashUrl
       });
     } catch (error) {
-      debug(error);
+      debugError(error);
       return;
     }
   }
@@ -58,11 +58,11 @@ app.get('/api/faucet/eth/ropsten',
 app.get('/api/faucet/mxc/ropsten',
   // Middleware chain
   async (req, res, next) => {
-    console.log('Checking MXC ERC-20 token account balance of requestor');
+    debugLog('Checking MXC ERC-20 token account balance of requestor');
     await contractMiddlewareMxc.checkBalanceRequestorMxc(req, res, next);
   },
   async (req, res, next) => {
-    console.log('Checking MXC ERC-20 token account balance of faucet');
+    debugLog('Checking MXC ERC-20 token account balance of faucet');
     await contractMiddlewareMxc.checkBalanceFaucetMxc(req, res, next);
   },
   async (req, res, next) => {
@@ -83,7 +83,7 @@ app.get('/api/faucet/mxc/ropsten',
         tx: transactionHashUrl
       });
     } catch (error) {
-      debug(error);
+      debugLog(error);
       return;
     }
   }
@@ -95,11 +95,11 @@ app.get('/api/faucet/mxc/ropsten',
 app.get('/api/faucet/dhx/harbour',
   // Middleware chain
   async (req, res, next) => {
-    console.log('Checking DHX token account balance of requestor');
+    debugLog('Checking DHX token account balance of requestor');
     await contractMiddlewareDhx.checkBalanceRequestorDhx(req, res, next);
   },
   async (req, res, next) => {
-    console.log('Checking DHX token account balance of faucet');
+    debugLog('Checking DHX token account balance of faucet');
     await contractMiddlewareDhx.checkBalanceFaucetDhx(req, res, next);
   },
   async (req, res, next) => {
@@ -120,7 +120,7 @@ app.get('/api/faucet/dhx/harbour',
         tx: transactionHashUrl
       });
     } catch (error) {
-      debug(error);
+      debugError(error);
       return;
     }
   }
@@ -136,4 +136,4 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, () => debugLog(`Listening on port ${port}`));

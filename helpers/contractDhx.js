@@ -1,6 +1,6 @@
 const { ApiPromise, Keyring, WsProvider } = require('@polkadot/api');
 const BN = require('bn.js');
-const debug = require('debug')('app');
+const { debugLog, debugInfo, debugError } = require('../utils/debug.js');
 
 const {
   HARBOUR_DHX_CHAIN_ENDPOINT,
@@ -17,7 +17,7 @@ const getCustomTypesDhx = async () => {
     throw new Error(response.statusText);
   };
   const json = await response.json();
-  // debug('json', json);
+  // debugLog('json', json);
   return json;
 }
 
@@ -50,7 +50,7 @@ const DAppDhx = {
     ]);
     const balanceBN = new BN(balance.free, 10);
     const nonceBN = new BN(nonce, 10);
-    debug(`Balance of ${balanceBN.toString()} and a nonce of ${nonceBN.toString()}`);
+    debugLog(`Balance of ${balanceBN.toString()} and a nonce of ${nonceBN.toString()}`);
     return balanceBN;
   },
   getBalanceFaucetDhx: async () => {
@@ -58,7 +58,7 @@ const DAppDhx = {
       await DAppDhx.api.query.system.account(DAppDhx.faucetAccount.address);
     const balanceBN = new BN(balance.free, 10);
     const nonceBN = new BN(nonce, 10);
-    debug(`Balance of faucet is ${balanceBN.toString()} and a nonce of ${nonceBN.toString()}`);
+    debugLog(`Balance of faucet is ${balanceBN.toString()} and a nonce of ${nonceBN.toString()}`);
     return balanceBN;
   },
   getBlock: async () => {
@@ -72,19 +72,19 @@ const DAppDhx = {
       const [signedBlock] = await Promise.all([
         DAppDhx.api.rpc.chain.getBlock(blockHash)
       ]);
-      // debug('signedBlock', signedBlock.block.header.parentHash.toHex());
+      // debugLog('signedBlock', signedBlock.block.header.parentHash.toHex());
       // For additional, see: https://github.com/ltfschoen/flappytips/blob/master/src/Game.js
     });
   },
   sendTransactionDhx: async (to) => {
-    debug('Recipient: ', to);
-    debug('Sending DataHighway Harbour DHX. Please wait...');
+    debugLog('Recipient: ', to);
+    debugLog('Sending DataHighway Harbour DHX. Please wait...');
     // Show Ethereum address associated with mnemonic
     const amount = HARBOUR_DHX_FAUCET_TO_SEND;
     const transfer = DAppDhx.api.tx.balances.transfer(to, amount);
     const transactionHash = await transfer.signAndSend(DAppDhx.faucetAccount);
     const transactionHashHex = transactionHash.toHex();
-    debug('Transaction hash: ', transactionHashHex);
+    debugLog('Transaction hash: ', transactionHashHex);
     return {
       // FIXME - use subscan.io or polkascan.io to provide url
       transactionHashUrl: transactionHashHex

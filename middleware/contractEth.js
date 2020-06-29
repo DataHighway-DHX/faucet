@@ -1,11 +1,11 @@
 const BN = require('bn.js');
-const debug = require('debug')('app');
+const { debugLog, debugInfo, debugError } = require('../utils/debug.js');
 const { DApp: { getBalanceEth, getBalanceFaucetEth } } = require('../helpers/contract.js');
 const { ROPSTEN_ETH_REQUESTOR_SUFFICIENT_BALANCE, ROPSTEN_ETH_FAUCET_SUFFICIENT_BALANCE } = require('../constants');
 
 const checkBalanceRequestorEth = async (req, res, next) => {
   try {
-    debug('Middleware to check Ropsten ETH balance of requestors Ethereum address');
+    debugLog('Middleware to check Ropsten ETH balance of requestors Ethereum address');
     const balanceEth = await getBalanceEth(req.query.address);
     res.locals.isBalanceRequestorLowEth = true;
     const sufficientBalanceBN = ROPSTEN_ETH_REQUESTOR_SUFFICIENT_BALANCE;
@@ -14,7 +14,7 @@ const checkBalanceRequestorEth = async (req, res, next) => {
     }
   } catch (error) {
     if (error) {
-      console.error('Error checking balance of Ropsten ETH with middleware: ', error);
+      debugError('Error checking balance of Ropsten ETH with middleware: ', error);
       next(error);
       return;
     }
@@ -24,7 +24,7 @@ const checkBalanceRequestorEth = async (req, res, next) => {
 
 const checkBalanceFaucetEth = async (req, res, next) => {
   try {
-    debug('Middleware to check Ropsten ETH balance of faucet Ethereum address');
+    debugLog('Middleware to check Ropsten ETH balance of faucet Ethereum address');
     const balanceEth = await getBalanceFaucetEth();
     res.locals.isBalanceFaucetLowEth = true;
     const sufficientBalanceBN = ROPSTEN_ETH_FAUCET_SUFFICIENT_BALANCE;
@@ -33,7 +33,7 @@ const checkBalanceFaucetEth = async (req, res, next) => {
     }
   } catch (error) {
     if (error) {
-      console.error('Error checking balance of Ropsten ETH with middleware: ', error);
+      debugError('Error checking balance of Ropsten ETH with middleware: ', error);
       next(error);
       return;
     }

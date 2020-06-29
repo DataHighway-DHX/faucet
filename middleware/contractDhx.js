@@ -1,11 +1,11 @@
 const BN = require('bn.js');
-const debug = require('debug')('app');
+const { debugLog, debugInfo, debugError } = require('../utils/debug.js');
 const { DAppDhx: { getBalanceDhx, getBalanceFaucetDhx } } = require('../helpers/contractDhx.js');
 const { HARBOUR_DHX_REQUESTOR_SUFFICIENT_BALANCE, HARBOUR_DHX_FAUCET_SUFFICIENT_BALANCE } = require('../constants');
 
 const checkBalanceRequestorDhx = async (req, res, next) => {
   try {
-    debug('Middleware to check Harbour DHX balance of requestors DataHighway address');
+    debugLog('Middleware to check Harbour DHX balance of requestors DataHighway address');
     const balanceDhx = await getBalanceDhx(req.query.address);
     res.locals.isBalanceRequestorLowDhx = true;
     const sufficientBalanceBN = HARBOUR_DHX_REQUESTOR_SUFFICIENT_BALANCE;
@@ -14,7 +14,7 @@ const checkBalanceRequestorDhx = async (req, res, next) => {
     }
   } catch (error) {
     if (error) {
-      console.error('Error checking balance of Harbour DHX with middleware: ', error);
+      debugError('Error checking balance of Harbour DHX with middleware: ', error);
       next(error);
       return;
     }
@@ -24,7 +24,7 @@ const checkBalanceRequestorDhx = async (req, res, next) => {
 
 const checkBalanceFaucetDhx = async (req, res, next) => {
   try {
-    debug('Middleware to check Harbour DHX balance of faucet DataHighway address');
+    debugLog('Middleware to check Harbour DHX balance of faucet DataHighway address');
     const balanceDhx = await getBalanceFaucetDhx();
     res.locals.isBalanceFaucetLowDhx = true;
     const sufficientBalanceBN = HARBOUR_DHX_FAUCET_SUFFICIENT_BALANCE;
@@ -33,7 +33,7 @@ const checkBalanceFaucetDhx = async (req, res, next) => {
     }
   } catch (error) {
     if (error) {
-      console.error('Error checking balance of Harbour DHX with middleware: ', error);
+      debugError('Error checking balance of Harbour DHX with middleware: ', error);
       next(error);
       return;
     }
