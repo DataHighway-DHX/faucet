@@ -126,7 +126,7 @@ class App extends Component {
               <Form.Group controlId="formRequestEth">
                 <Row className="justify-content-md-center">
                   <Col xs={12} md={3}>
-                    <Form.Label><h6>Request ETH (Ropsten Testnet)</h6></Form.Label>
+                    <Form.Label><h6>ETH (Ropsten Testnet)</h6></Form.Label>
                   </Col>
                   <Col xs={8} md={5} >
                     <Form.Control
@@ -140,7 +140,7 @@ class App extends Component {
                     </Form.Text>
                   </Col>
                   <Col xs={3} md={2} className="request">
-                    <Button variant="primary" className="btn btn-md" type="submit">Submit</Button>
+                    <Button variant="primary" className="btn btn-md" type="submit">Request</Button>
                   </Col>
                 </Row>
               </Form.Group>
@@ -150,7 +150,7 @@ class App extends Component {
               <Form.Group controlId="formRequestMxc">
                 <Row className="justify-content-md-center">
                   <Col xs={12} md={3}>
-                    <Form.Label><h6>Request MXC (Ropsten Testnet)</h6></Form.Label>
+                    <Form.Label><h6>MXC (Ropsten Testnet)</h6></Form.Label>
                   </Col>
                   <Col xs={8} md={5}>
                     <Form.Control
@@ -165,7 +165,7 @@ class App extends Component {
                     </Form.Text>
                   </Col>
                   <Col xs={3} md={2} className="request">
-                    <Button variant="primary" className="btn btn-md" type="submit">Submit</Button>
+                    <Button variant="primary" className="btn btn-md" type="submit">Request</Button>
                   </Col>
                 </Row>
               </Form.Group>
@@ -175,7 +175,7 @@ class App extends Component {
               <Form.Group controlId="formRequestDhx">
                 <Row className="justify-content-md-center">
                   <Col xs={12} md={3}>
-                    <Form.Label><h6>Request DHX (Harbour Testnet)</h6></Form.Label>
+                    <Form.Label><h6>DHX (Harbour Testnet)</h6></Form.Label>
                   </Col>
                   <Col xs={8} md={5}>
                     <Form.Control
@@ -190,7 +190,7 @@ class App extends Component {
                     </Form.Text>
                   </Col>
                   <Col xs={3} md={2} className="request">
-                    <Button variant="primary" className="btn btn-md" type="submit">Submit</Button>
+                    <Button variant="primary" className="btn btn-md" type="submit">Request</Button>
                   </Col>
                 </Row>
               </Form.Group>
