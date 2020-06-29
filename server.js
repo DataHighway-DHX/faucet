@@ -42,7 +42,7 @@ app.get('/api/faucet/eth/ropsten',
       const to = req.query.address;
       const { transactionHashUrl } = await sendTransactionEth(to);
       res.send({
-        message: 'Ropsten Ether sent',
+        message: 'Ropsten Ether sent with transaction',
         tx: transactionHashUrl
       });
     } catch (error) {
@@ -79,7 +79,7 @@ app.get('/api/faucet/mxc/ropsten',
       const to = req.query.address;
       const { transactionHashUrl } = await sendTransactionMxc(to);
       res.send({
-        message: 'Ropsten MXC ERC-20 sent',
+        message: 'Ropsten MXC ERC-20 sent with transaction',
         tx: transactionHashUrl
       });
     } catch (error) {
@@ -116,7 +116,7 @@ app.get('/api/faucet/dhx/harbour',
       const to = req.query.address;
       const { transactionHashUrl } = await sendTransactionDhx(to);
       res.send({
-        message: 'Harbour DHX sent',
+        message: 'Harbour DHX sent with transaction',
         tx: transactionHashUrl
       });
     } catch (error) {

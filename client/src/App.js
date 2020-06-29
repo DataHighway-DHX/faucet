@@ -131,7 +131,12 @@ class App extends Component {
                 <Row className="justify-content-md-center">
                   <Col xs={12} md={12}>
                     <Alert variant="info">
-                      {responseMsg} {responseTx ? <a target="_new" href={responseTx}>View Transaction</a> : null}
+                      {/* Show link to Ethereum transactions but only provide hash for DataHighway transactions */}
+                      {responseMsg} {responseTx ? (
+                        responseTx.includes("etherscan") ? (
+                          <a target="_new" href={responseTx}>View Transaction</a>
+                        ) : responseTx
+                      ) : null}
                     </Alert>
                   </Col>
                 </Row>
