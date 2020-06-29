@@ -15,7 +15,6 @@ const getCustomTypesDhx = async () => {
   });
   if (response.status !== 200) {
     throw new Error(response.statusText);
-    return;
   };
   const json = await response.json();
   // debug('json', json);
