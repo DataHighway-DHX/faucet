@@ -17,7 +17,7 @@
     "dev": "concurrently --kill-others-on-fail \"DEBUG=app yarn server\" \"yarn client\""
   },
   "dependencies": {
-    "@polkadot/api": "^1.21.1",
+    "@polkadot/api": "=1.8.1",
     "@truffle/hdwallet-provider": "^1.0.36",
     "bn.js": "^5.1.2",
     "body-parser": "^1.19.0",
