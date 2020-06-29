@@ -7,6 +7,7 @@ class App extends Component {
   state = {
     ethAddressForEth: '',
     ethAddressForMxc: '',
+    dhxAddressForDhx: '',
     responseMessage: '',
     responseTx: ''
   };
@@ -67,6 +68,34 @@ class App extends Component {
     });
   };
   
+  handleSubmitRequestDhx = async e => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const inputDhxAddress = data.get('dhxAddressForDhx');
+    if (inputDhxAddress === '') {
+      return;
+    }
+    const url = new URL(`${window.location.href}api/faucet/dhx/harbour`);
+    const params = { address: inputDhxAddress };
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+    const response = await fetch(url, {
+      method: 'GET',
+    });
+    if (response.status !== 200) {
+      this.setState({
+        responseMsg: response.statusText,
+      });
+      return;
+    };
+    const json = await response.json();
+    console.log('Response from handling request for DHX in json: ', json);
+    this.setState({
+      responseMsg: json.message,
+      responseTx: json.tx
+    });
+  };
+
   render() {
     const { responseMsg, responseTx } = this.state;
     return (
@@ -77,7 +106,7 @@ class App extends Component {
               <Form.Group controlId="formRequestEth">
                 <Row className="justify-content-md-center">
                   <Col xs={12} md={2}>
-                    <Form.Label><h3>Request ETH</h3></Form.Label>
+                    <Form.Label><h3>Request ETH (Ropsten Testnet)</h3></Form.Label>
                   </Col>
                   <Col xs={12} md={5}>
                     <Form.Control
@@ -98,7 +127,7 @@ class App extends Component {
               <Form.Group controlId="formRequestMxc">
                 <Row className="justify-content-md-center">
                   <Col xs={12} md={2}>
-                    <Form.Label><h3>Request MXC</h3></Form.Label>
+                    <Form.Label><h3>Request MXC (Ropsten Testnet)</h3></Form.Label>
                   </Col>
                   <Col xs={12} md={5}>
                     <Form.Control
@@ -110,6 +139,28 @@ class App extends Component {
                     />
                     <Form.Text className="text-muted">
                       Ethereum address for MXC ERC-20 tokens
+                    </Form.Text>
+                    <Button variant="primary" className="btn btn-lg" type="submit">Submit</Button>
+                  </Col>
+                </Row>
+              </Form.Group>
+            </Form>
+            <Form onSubmit={this.handleSubmitRequestDhx}>
+              <Form.Group controlId="formRequestDhx">
+                <Row className="justify-content-md-center">
+                  <Col xs={12} md={2}>
+                    <Form.Label><h3>Request DHX (Harbour Testnet)</h3></Form.Label>
+                  </Col>
+                  <Col xs={12} md={5}>
+                    <Form.Control
+                      type="text"
+                      ref={this.dhxAddressForDhx}
+                      name="dhxAddressForDhx"
+                      placeholder="DataHighway Address"
+                      onChange={(e) => this.setState({ dhxAddressForDhx: e.target.value})}
+                    />
+                    <Form.Text className="text-muted">
+                      DataHighway address for DHX tokens
                     </Form.Text>
                     <Button variant="primary" className="btn btn-lg" type="submit">Submit</Button>
                   </Col>
