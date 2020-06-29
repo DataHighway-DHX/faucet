@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, Container, Col, Form, Row } from "react-bootstrap";
+import { Alert, Button, Container, Col, Form, Row, Spinner } from "react-bootstrap";
 
 import './App.css';
 
@@ -23,9 +23,11 @@ class App extends Component {
     const params = { address: inputEthAddress };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
+    this.setState({ isLoading: true });
     const response = await fetch(url, {
       method: 'GET',
     });
+    this.setState({ isLoading: false });
     if (response.status !== 200) {
       this.setState({
         responseMsg: response.statusText,
@@ -51,9 +53,11 @@ class App extends Component {
     const params = { address: inputEthAddress };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
+    this.setState({ isLoading: true });
     const response = await fetch(url, {
       method: 'GET',
     });
+    this.setState({ isLoading: false });
     if (response.status !== 200) {
       this.setState({
         responseMsg: response.statusText,
@@ -79,9 +83,11 @@ class App extends Component {
     const params = { address: inputDhxAddress };
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
+    this.setState({ isLoading: true });
     const response = await fetch(url, {
       method: 'GET',
     });
+    this.setState({ isLoading: false });
     if (response.status !== 200) {
       this.setState({
         responseMsg: response.statusText,
@@ -97,7 +103,7 @@ class App extends Component {
   };
 
   render() {
-    const { responseMsg, responseTx } = this.state;
+    const { isLoading, responseMsg, responseTx } = this.state;
     return (
       <Container fluid className="App">
         <Row className="justify-content-md-center">
@@ -129,6 +135,11 @@ class App extends Component {
                     </Alert>
                   </Col>
                 </Row>
+              ) : null
+            }
+            {
+              isLoading && (!responseMsg || !responseTx) ? (
+                <Spinner animation="border" variant="primary" />
               ) : null
             }
             <hr className="mb-4" />
