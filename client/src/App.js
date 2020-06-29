@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Col, Form, Row } from "react-bootstrap";
+import { Alert, Button, Container, Col, Form, Row } from "react-bootstrap";
 
 import './App.css';
 
@@ -101,14 +101,34 @@ class App extends Component {
     return (
       <Container fluid className="App">
         <Row className="justify-content-md-center">
+          <Col xs={12} md={3}>
+            <a target="_blank" rel="noopener noreferrer" href="https://datahighway.com">
+              <img
+                width={64}
+                height={64}
+                className="align-self-start mr-3"
+                src="./datahighwayicon.png"
+                alt="DataHighway"
+              />
+            </a>
+          </Col>
+          <Col xs={12} md={9} className="mt-4">
+            <h2>DataHighway Faucet</h2><br />
+            <p class="media-body-description">
+              The DataHighway Faucet has been provided to allow users to request different tokens to test the DataHighway Harbour Testnet.
+            </p>
+          </Col>
+        </Row>
+        <Row className="justify-content-md-center">
           <Col>
+            <hr className="mb-4" />
             <Form onSubmit={this.handleSubmitRequestEth}>
               <Form.Group controlId="formRequestEth">
                 <Row className="justify-content-md-center">
-                  <Col xs={12} md={2}>
-                    <Form.Label><h3>Request ETH (Ropsten Testnet)</h3></Form.Label>
+                  <Col xs={12} md={3}>
+                    <Form.Label><h6>Request ETH (Ropsten Testnet)</h6></Form.Label>
                   </Col>
-                  <Col xs={12} md={5}>
+                  <Col xs={8} md={5} >
                     <Form.Control
                       type="text"
                       ref={this.ethAddressForEth}
@@ -116,20 +136,23 @@ class App extends Component {
                       onChange={(e) => this.setState({ ethAddressForEth: e.target.value})}
                     />
                     <Form.Text className="text-muted">
-                      Ethereum address for Ropsten ETH
+                      Ethereum address for Ropsten ETH to pay for gas fees necessary to mine MXC or pegged IOTA ERC-20 tokens
                     </Form.Text>
-                    <Button variant="primary" className="btn btn-lg" type="submit">Submit</Button>
+                  </Col>
+                  <Col xs={3} md={2} className="request">
+                    <Button variant="primary" className="btn btn-md" type="submit">Submit</Button>
                   </Col>
                 </Row>
               </Form.Group>
             </Form>
+            <hr className="mb-4" />
             <Form onSubmit={this.handleSubmitRequestMxc}>
               <Form.Group controlId="formRequestMxc">
                 <Row className="justify-content-md-center">
-                  <Col xs={12} md={2}>
-                    <Form.Label><h3>Request MXC (Ropsten Testnet)</h3></Form.Label>
+                  <Col xs={12} md={3}>
+                    <Form.Label><h6>Request MXC (Ropsten Testnet)</h6></Form.Label>
                   </Col>
-                  <Col xs={12} md={5}>
+                  <Col xs={8} md={5}>
                     <Form.Control
                       type="text"
                       ref={this.ethAddressForMxc}
@@ -138,20 +161,23 @@ class App extends Component {
                       onChange={(e) => this.setState({ ethAddressForMxc: e.target.value})}
                     />
                     <Form.Text className="text-muted">
-                      Ethereum address for MXC ERC-20 tokens
+                      Ethereum address for Ropsten MXC ERC-20 tokens for mining
                     </Form.Text>
-                    <Button variant="primary" className="btn btn-lg" type="submit">Submit</Button>
+                  </Col>
+                  <Col xs={3} md={2} className="request">
+                    <Button variant="primary" className="btn btn-md" type="submit">Submit</Button>
                   </Col>
                 </Row>
               </Form.Group>
             </Form>
+            <hr className="mb-4" />
             <Form onSubmit={this.handleSubmitRequestDhx}>
               <Form.Group controlId="formRequestDhx">
                 <Row className="justify-content-md-center">
-                  <Col xs={12} md={2}>
-                    <Form.Label><h3>Request DHX (Harbour Testnet)</h3></Form.Label>
+                  <Col xs={12} md={3}>
+                    <Form.Label><h6>Request DHX (Harbour Testnet)</h6></Form.Label>
                   </Col>
-                  <Col xs={12} md={5}>
+                  <Col xs={8} md={5}>
                     <Form.Control
                       type="text"
                       ref={this.dhxAddressForDhx}
@@ -160,9 +186,11 @@ class App extends Component {
                       onChange={(e) => this.setState({ dhxAddressForDhx: e.target.value})}
                     />
                     <Form.Text className="text-muted">
-                      DataHighway address for DHX tokens
+                      DataHighway address for Harbour Testnet DHX tokens
                     </Form.Text>
-                    <Button variant="primary" className="btn btn-lg" type="submit">Submit</Button>
+                  </Col>
+                  <Col xs={3} md={2} className="request">
+                    <Button variant="primary" className="btn btn-md" type="submit">Submit</Button>
                   </Col>
                 </Row>
               </Form.Group>
@@ -172,6 +200,20 @@ class App extends Component {
                 <p>{responseMsg} {responseTx ? <a target="_new" href={responseTx}>View Transaction</a> : null}</p>
               </Col>
             </Row>
+          </Col>
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col xs={12} md={12}>
+            <Alert variant="light">
+              <Alert.Heading>Support</Alert.Heading>
+              <p>
+                The faucet only works when your testnet balances are low enough: Ropsten ETH balance is &lt; 1 ETH; Ropsten MXC ERC-20 token balance is &lt; 1 MXC; DataHighway DHX token balance is &lt; 1 DHX. It does not support the supplying smart contracts, since only a limited gas price has been catered for.
+              </p>
+              <hr />
+              <p className="mb-0">
+              If the faucet is depleted of funds, then please click <a target="_blank" rel="noopener noreferrer" href="https://github.com/DataHighway-DHX/faucet/issues/new">here</a> to create a support ticket and provide your DataHighway Harbour and Ethereum address.
+              </p>
+            </Alert>
           </Col>
         </Row>
       </Container>
