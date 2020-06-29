@@ -10,7 +10,7 @@
     "yarn": "1.x"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "DEBUG=app node server.js",
     "heroku-postbuild": "cd client && yarn install && yarn install --only=dev --no-shrinkwrap && yarn run build",
     "client": "cd client && yarn && yarn start",
     "server": "yarn && nodemon server.js",
