@@ -1,11 +1,11 @@
 const BN = require('bn.js');
-
+const debug = require('debug')('app');
 const { DApp: { getBalanceEth, getBalanceFaucetEth } } = require('../helpers/contract.js');
 const { ROPSTEN_ETH_REQUESTOR_SUFFICIENT_BALANCE, ROPSTEN_ETH_FAUCET_SUFFICIENT_BALANCE } = require('../constants');
 
 const checkBalanceRequestorEth = async (req, res, next) => {
   try {
-    console.log('Middleware to check Ropsten ETH balance of requestors Ethereum address');
+    debug('Middleware to check Ropsten ETH balance of requestors Ethereum address');
     const balanceEth = await getBalanceEth(req.query.address);
     res.locals.isBalanceRequestorLowEth = true;
     const sufficientBalanceBN = ROPSTEN_ETH_REQUESTOR_SUFFICIENT_BALANCE;
@@ -24,7 +24,7 @@ const checkBalanceRequestorEth = async (req, res, next) => {
 
 const checkBalanceFaucetEth = async (req, res, next) => {
   try {
-    console.log('Middleware to check Ropsten ETH balance of faucet Ethereum address');
+    debug('Middleware to check Ropsten ETH balance of faucet Ethereum address');
     const balanceEth = await getBalanceFaucetEth();
     res.locals.isBalanceFaucetLowEth = true;
     const sufficientBalanceBN = ROPSTEN_ETH_FAUCET_SUFFICIENT_BALANCE;
