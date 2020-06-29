@@ -114,7 +114,7 @@ class App extends Component {
           </Col>
           <Col xs={12} md={9} className="mt-4">
             <h2>DataHighway Faucet</h2><br />
-            <p class="media-body-description">
+            <p className="media-body-description">
               The DataHighway Faucet has been provided to allow users to request different tokens to test the DataHighway Harbour Testnet.
             </p>
           </Col>
