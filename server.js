@@ -3,6 +3,7 @@ const debug = require('debug')('app');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+global.fetch = require("node-fetch");
 
 const app = express();
 const port = process.env.PORT || 5000;
